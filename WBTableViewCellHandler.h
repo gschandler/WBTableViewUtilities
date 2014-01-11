@@ -94,10 +94,10 @@ typedef NS_ENUM(NSUInteger,WBTableViewCellEvents) {
 - (void)removeTarget:(id)target action:(SEL)action forTableViewCellEvent:(WBTableViewCellEvents)event;
 
 @property (nonatomic,assign) UIEdgeInsets contentInsets;
-@property (strong) NSString *tableViewCellTitle;
-@property (strong) NSString *tableViewCellDetails;
+@property (copy) NSString *tableViewCellTitle;
+@property (copy) NSString *tableViewCellDetails;
 @property (strong) UIImage *tableViewCellImage;
-@property (nonatomic,strong,readonly) NSString *tableViewCellReuseIdentifier;
+@property (nonatomic,copy,readonly) NSString *tableViewCellReuseIdentifier;
 @property (nonatomic,readonly) Class tableViewCellClass;
 @property (nonatomic,readonly) UITableViewCellStyle tableViewCellStyle;
 

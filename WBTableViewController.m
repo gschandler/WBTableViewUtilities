@@ -29,6 +29,9 @@
 #import "WBTableConfiguration.h"
 #import "WBTableViewCellHandler.h"
 #import "WBTableConfiguration.h"
+#import "WBTableSection.h"
+#import "WBTableHeaderFooter.h"
+#import "WBSectionHeaderFooter.h"
 
 @interface WBTableViewController()
 //- (void)validateTableConfiguration;

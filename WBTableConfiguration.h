@@ -26,82 +26,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "WBTableViewCellHandler.h"
-
-/*
- *
- *	WBSectionHeaderFooter
- *
- */
-@interface WBSectionHeaderFooter : NSObject
-{
-	NSString *_title;
-	UIView *_view;
-	CGFloat _height;
-}
-@property(copy) NSString *title;
-@property(strong) UIView *view;
-@property(assign) CGFloat height;
-
-@end
-
-
-/*
- *
- *	WBTableSection
- *
- */
-@interface WBTableSection : NSObject
-{
-	NSInteger					_tag;
-	WBSectionHeaderFooter *		_header;
-	WBSectionHeaderFooter *		_footer;
-	NSArray *					_handlers;
-	NSInteger					_rowCount;
-}
-@property(strong,readonly) WBSectionHeaderFooter *header;
-@property(strong,readonly) WBSectionHeaderFooter *footer;
-@property(nonatomic,assign) NSInteger rowCount;
-@property(assign) NSInteger tag;
-@property (strong,readonly) NSArray *tableViewCellHandlers;
-
-- (id)initWithTableViewCellHandlers:(NSArray *)handlers;
-
-- (void)addTableViewCellHandler:(id<WBTableViewCellHandler>)handler;
-- (void)removeTableViewCellHandler:(id<WBTableViewCellHandler>)handler;
-- (id<WBTableViewCellHandler>)tableViewCellHandlerAtIndex:(NSInteger)index;
-- (id<WBTableViewCellHandler>)firstTableViewCellHandler;
-- (id<WBTableViewCellHandler>)lastTableViewCellHandler;
-
-- (NSEnumerator *)tableViewCellHandlerEnumerator;
-
-- (NSInteger)indexOfTableViewCellHandler:(id<WBTableViewCellHandler>)controller;
-
-- (void)makeTableViewCellHandlersPerformSelector:(SEL)selector;
-- (void)makeTableViewCellHandlersPerformSelector:(SEL)selector withObject:(id)object;
-
-#if NS_BLOCKS_AVAILABLE
-- (void)enumerateTableViewCellHandlers:(void (^)(id<WBTableViewCellHandler> handler, NSInteger idx, BOOL *stop))block;
-#endif
-@end
-
-
-/*
- *
- *	WBTableHeaderFooter
- *
- */
-@interface WBTableHeaderFooter : NSObject
-{
-	UIView *_view;
-	CGFloat _height;
-}
-
-@property(strong) UIView *view;
-@property(assign) CGFloat height;
-
-@end
-
+@protocol	WBTableViewCellHandler;
+@class WBTableSection;
+@class WBTableHeaderFooter;
 
 
 /*
@@ -115,22 +42,27 @@
 	WBTableHeaderFooter *	_footer;
 	NSArray *				_sections;
 }
-@property(strong,readonly) WBTableHeaderFooter *header;
-@property(strong,readonly) WBTableHeaderFooter *footer;
+@property (strong,readonly) WBTableHeaderFooter *header;
+@property (strong,readonly) WBTableHeaderFooter *footer;
 @property (strong,readonly) NSArray *sections;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithDictionary:(NSDictionary *)dictionary;	// not yet implemented
 - (id)initWithTableSections:(NSArray *)sections;
 
 - (NSInteger)numberOfSections;
+
+// provides index bounding
 - (WBTableSection *)sectionAtIndex:(NSInteger)index;
 - (WBTableSection *)sectionWithTag:(NSInteger)tag;
 - (WBTableSection *)lastSection;
 - (WBTableSection *)firstSection;
+
+- (WBTableSection *)addSection;
 - (void)addSection:(WBTableSection *)section;
 - (void)insertSection:(WBTableSection *)section atIndex:(NSInteger)index;
 - (void)removeSection:(WBTableSection *)section;
 - (void)removeSectionAtIndex:(NSInteger)index;
+- (void)removeSectionWithTag:(NSInteger)tag;
 
 - (NSEnumerator *)sectionEnumerator;
 
